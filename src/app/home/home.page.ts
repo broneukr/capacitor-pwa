@@ -17,13 +17,14 @@ export class HomePage {
 
   async takePicture() {
     const image = await Camera.getPhoto({
-      quality: 90,
+      quality: 100,
       allowEditing: true,
       resultType: CameraResultType.Uri,
       source: CameraSource.Camera
     });
 
     this.myImage = image.webPath;
+    console.log(this.myImage)
   }
 
   async getCurrentPosition() {
