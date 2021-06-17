@@ -24,9 +24,19 @@ export class HomePage {
     });
 
     this.myImage = image.webPath;
-    console.log(this.myImage)
+    
   }
-
+  
+  const stream = await navigator.mediaDevices.getUserMedia({ video : true });
+  const track = stream.getVideoTracks()[0];
+  let imageCapture = new ImageCapture(track);
+  imageCapture.takePhoto().then((blob) => {
+      const newFile = new File([blob], "MyJPEG.jpg", { type: "image/jpeg" });
+      EXIF.getData(newFile, function () {
+          const make = EXIF.getAllTags(newFile);
+          console.log("All data", make);
+     });
+  })
   async getCurrentPosition() {
     const coordinates = await Geolocation.getCurrentPosition();
     
